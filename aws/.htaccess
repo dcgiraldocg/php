@@ -1,0 +1,34 @@
+Options -Indexes
+# DO NOT REMOVE THIS LINE AND THE LINES BELLOW SSL_REDIRECT:massmedios.net
+RewriteEngine on
+RewriteCond %{HTTPS} off
+RewriteCond %{HTTP_HOST} (www\.)?massmedios.net
+RewriteRule (.*) https://%{HTTP_HOST}%{REQUEST_URI} [L,R=301]
+# DO NOT REMOVE THIS LINE AND THE LINES BELLOW SSL_REDIRECT:massmedios.net
+
+# DO NOT REMOVE THIS LINE AND THE LINES BELLOW WWW TO NON-WWW
+RewriteCond %{HTTP_HOST} ^www\.(.*)$ [NC]
+RewriteRule ^(.*)$ https://%1/$1 [R=301,L]
+# DO NOT REMOVE THIS LINE AND THE LINES BELLOW WWW TO NON-WWW
+
+RewriteBase /
+RewriteRule ^$ index.php [L,R]
+RewriteRule ^audios/(.*)$ resources/audios/$1 [L,NC,R]
+RewriteRule ^images/(.*)$ resources/images/$1 [L,NC,R]
+RewriteRule ^styles/(.*)$ resources/scripts/$1 [L,NC,R,T=text/css]
+RewriteRule ^scripts/(.*)$ resources/scripts/$1 [L,NC,R]
+RewriteRule ^videos/(.*)$ resources/videos/$1 [L,NC,R]
+RewriteRule ^([A-Za-z0-9]*)$ views/$1View.php [L,NC]
+RewriteRule ^([A-Za-z0-9]*)/([A-Za-z0-9]*)$ controllers/$1Controller.php?action=$2 [L,NC,QSA]
+ErrorDocument 404 /404
+
+# GZIP Compression
+# AddOutputFilterByType DEFLATE text/plain
+# AddOutputFilterByType DEFLATE text/html
+# AddOutputFilterByType DEFLATE text/xml
+# AddOutputFilterByType DEFLATE text/css
+# AddOutputFilterByType DEFLATE application/xml
+# AddOutputFilterByType DEFLATE application/xhtml+xml
+# AddOutputFilterByType DEFLATE application/rss+xml
+# AddOutputFilterByType DEFLATE application/javascript
+# AddOutputFilterByType DEFLATE application/x-javascript
